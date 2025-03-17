@@ -4,30 +4,39 @@ import "../3.StopWatch App/StopWatch.css"
 export const StopWatch = ()=>{
   const button = ['start', 'stop', 'reset']
   // Hooks
-  const [data, setData]=useState(button)
-  const [hours, setHours]=useState('')
-  const [minutes, setMinutes]=useState('')
-  const [seconds, setSeconds]=useState('')
+  const [data]=useState(button)
+  const [hours, setHours]=useState(0)
+  const [minutes, setMinutes]=useState(0)
+  const [seconds, setSeconds]=useState(0)
   const [running, setRunning]=useState(false)
   // Logic
   useEffect(() => {
+    let timer
       if(running){
+        console.log(running);
+        
         // 
         console.log(running);
 
-        setInterval(() => {
+        timer=setInterval(() => {
           setSeconds((prevSeconds)=>{
             if(prevSeconds<59){
-              return Number(prevSeconds)+1
+              return prevSeconds+1
             }
             else{
               setMinutes((prevMin)=>{
-                if(prevMin<60){
-                  return Number(prevMin)+1
+                if(prevMin<59){
+                  return prevMin+1
+                }
+                else{
+                  setHours((prevHrs)=>{
+                    return prevHrs+1
+                  })
                 }
                 return 0
               })
             }
+            return 0
           })
         }, 1000);
       }
@@ -35,7 +44,7 @@ export const StopWatch = ()=>{
     
   
     return () => {
-      
+      clearInterval(timer)
     }
   }, [running])
   
@@ -43,11 +52,21 @@ export const StopWatch = ()=>{
 
   const handleButtons=(curVal, index)=>{
     console.log('curVal:', curVal);
-    // console.log('curVal: ', index);
+    console.log('curVal: ', index);
     if(curVal==='start'){
       setRunning(true)
     }
+    else if(curVal==='stop'){
+      setRunning(false)
+    }
+    else if(curVal==='reset'){
+      setRunning(false)
+      setHours(0)
+      setMinutes(0)
+      setSeconds(0)
+    }
   }
+  
 
 
 
