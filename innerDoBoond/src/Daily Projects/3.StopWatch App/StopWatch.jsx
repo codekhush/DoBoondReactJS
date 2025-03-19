@@ -40,9 +40,6 @@ export const StopWatch = ()=>{
           })
         }, 1000);
       }
-      
-    
-  
     return () => {
       clearInterval(timer)
     }
@@ -66,9 +63,6 @@ export const StopWatch = ()=>{
       setSeconds(0)
     }
   }
-  
-
-
 
   return (
     <>
